@@ -1,0 +1,41 @@
+{
+    "1001": {
+        "supplier": "SoCalBioMed",
+        "website": "www.socalbiomed.com",
+        "size": "1",
+        "category": "Consumable",
+        "part_num": "721001",
+        "subcategory": "Flasks",
+        "name": "Cell Culture Flask",
+        "count": "25",
+        "brand": "NEST",
+        "price": "$147.00",
+        "units": "L"
+    },
+    "1002": {
+        "supplier": "SoCalBioMed",
+        "website": "www.socalbiomed.com",
+        "size": "500",
+        "category": "Chemicals|Reagents",
+        "part_num": "A1705",
+        "subcategory": "Agarose",
+        "name": "Agarose LE",
+        "count": "1",
+        "brand": "Benchmark",
+        "price": "$369.00",
+        "units": "g"
+    },
+    "1003": {
+        "supplier": "SoCalBioMed",
+        "website": "www.socalbiomed.com",
+        "size": "50",
+        "category": "Chemicals|Reagents",
+        "part_num": "K-2604",
+        "subcategory": "DNA/RNA Amplification",
+        "name": "Taq PCR PreMix, 0.2mL thin-wall 8-strip tubes",
+        "count": "480",
+        "brand": "AccuPower",
+        "price": "$322.00",
+        "units": "uL"
+    }
+}
