@@ -37,7 +37,7 @@ def code_node(state: State) -> Command[Literal["supervisor"]]:
         },
         goto="supervisor",
     )
-def code_node(state: State) -> Command[Literal["supervisor"]]:
+def data_scientist_node(state: State) -> Command[Literal["supervisor"]]:
     result = code_agent.invoke(state)
     return Command(
         update={
