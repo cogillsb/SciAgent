@@ -1,3 +1,6 @@
+
+members = ["SOP Archivist", "Data scientist", "Automation specialist", "Sample manager", "laboratory inventory manager"]
+
 prompt_system_task = """Your job is to gather information from the user about the User Story they need to create.
 
 You should obtain the following information from them:
@@ -13,3 +16,11 @@ Do not overwhelm the user with too many questions at once; ask for the informati
 Always remind them that if they do not know how to answer something, you can help them.
 
 After you are able to discern all the information, call the relevant tool."""
+
+supervisor_prompt =  (
+    "You are a supervisor tasked with managing a conversation between the"
+    f" following workers: {members}. Given the following user request,"
+    " respond with the worker to act next. Each worker will perform a"
+    " task and respond with their results and status. When finished,"
+    " respond with FINISH."
+)
