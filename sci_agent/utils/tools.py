@@ -16,3 +16,8 @@ def assign_unique_identifier():
     identify an available ID number,
     and tag the data to be entered"""
 
+@tool
+def get_SOP():
+    """Use this to get weather information."""
+    return "I get the sops"
+ 

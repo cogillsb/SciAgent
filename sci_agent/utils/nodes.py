@@ -8,6 +8,8 @@ from langgraph.graph import MessagesState, END
 from langgraph.types import Command
 from sci_agent.utils.state import State
 from sci_agent.utils import prompts
+from langgraph.prebuilt import create_react_agent
+
 
 model = ChatAnthropic(model="claude-3-5-sonnet-latest")
 
@@ -26,8 +28,15 @@ def supervisor_node(state: State) -> Command[Literal[*prompts.members, "__end__"
     goto = response["next"]
     if goto == "FINISH":
         goto = END
+    return Command(goto=goto, update={"next": goto})
 
-def code_node(state: State) -> Command[Literal["supervisor"]]:
+
+sop_archivist_agent = create_react_agent(
+    model, tools=[], prompt="You are a researcher. DO NOT do any math."
+)
+
+
+def sop_archivist_node(state: State) -> Command[Literal["supervisor"]]:
     result = code_agent.invoke(state)
     return Command(
         update={
@@ -48,7 +57,7 @@ def data_scientist_node(state: State) -> Command[Literal["supervisor"]]:
         goto="supervisor",
     )
 
-def code_node(state: State) -> Command[Literal["supervisor"]]:
+def automation_specialist_node(state: State) -> Command[Literal["supervisor"]]:
     result = code_agent.invoke(state)
     return Command(
         update={
@@ -59,7 +68,8 @@ def code_node(state: State) -> Command[Literal["supervisor"]]:
         goto="supervisor",
     )
 
-def code_node(state: State) -> Command[Literal["supervisor"]]:
+
+def sample_manager_node(state: State) -> Command[Literal["supervisor"]]:
     result = code_agent.invoke(state)
     return Command(
         update={
@@ -70,7 +80,19 @@ def code_node(state: State) -> Command[Literal["supervisor"]]:
         goto="supervisor",
     )
 
-    return Command(goto=goto, update={"next": goto})
+
+def lab_inventory_manager_node(state: State) -> Command[Literal["supervisor"]]:
+    result = code_agent.invoke(state)
+    return Command(
+        update={
+            "messages": [
+                HumanMessage(content=result["messages"][-1].content, name="coder")
+            ]
+        },
+        goto="supervisor",
+    )
+
+   
 
 
 
