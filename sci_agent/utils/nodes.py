@@ -1,6 +1,6 @@
 from functools import lru_cache
 from langchain_anthropic import ChatAnthropic
-from my_agent.utils.tools import tools
+from my_agent.utils.tools import get_SOP, find_conc
 from langgraph.prebuilt import ToolNode
 from typing import Literal
 from typing_extensions import TypedDict
@@ -20,6 +20,9 @@ class Router(TypedDict):
 
     next: Literal[*options]
 
+###################################################
+#supervisor
+####################################################
 def supervisor_node(state: State) -> Command[Literal[*prompts.members, "__end__"]]:
     messages = [
         {"role": "system", "content": prompts.supervisor_prompt},
@@ -30,63 +33,94 @@ def supervisor_node(state: State) -> Command[Literal[*prompts.members, "__end__"
         goto = END
     return Command(goto=goto, update={"next": goto})
 
-
+###################################################
+#SOP
+####################################################
 sop_archivist_agent = create_react_agent(
-    model, tools=[], prompt="You are a researcher. DO NOT do any math."
+    model, tools=[get_SOP], prompt=prompts.SOP_archivist_prompt
 )
 
-
 def sop_archivist_node(state: State) -> Command[Literal["supervisor"]]:
-    result = code_agent.invoke(state)
+    result = sop_archivist_agent.invoke(state)
     return Command(
         update={
             "messages": [
-                HumanMessage(content=result["messages"][-1].content, name="coder")
+                HumanMessage(content=result["messages"][-1].content, name="SOP archivist")
             ]
         },
         goto="supervisor",
     )
+###################################################
+#Data Scientist
+####################################################
+
+data_scientist_agent = create_react_agent(
+    model, tools=[find_conc], prompt=prompts.data_scientist_prompt
+)
+
 def data_scientist_node(state: State) -> Command[Literal["supervisor"]]:
-    result = code_agent.invoke(state)
+    result = data_scientist.invoke(state)
     return Command(
         update={
             "messages": [
-                HumanMessage(content=result["messages"][-1].content, name="coder")
+                HumanMessage(content=result["messages"][-1].content, name="data scientist")
             ]
         },
         goto="supervisor",
     )
+
+###################################################
+#Automation specialist
+####################################################
+
+automation_specialist_agent = create_react_agent(
+    model, tools=[write_method], prompt=prompts.automation_specialist_prompt
+)
 
 def automation_specialist_node(state: State) -> Command[Literal["supervisor"]]:
-    result = code_agent.invoke(state)
+    result = automation_specialist_agent.invoke(state)
     return Command(
         update={
             "messages": [
-                HumanMessage(content=result["messages"][-1].content, name="coder")
+                HumanMessage(content=result["messages"][-1].content, name="automation specialist")
             ]
         },
         goto="supervisor",
     )
 
+###################################################
+#sample manager
+####################################################
+
+sample_manager_agent = create_react_agent(
+    model, tools=[upload_samples], prompt=prompts.sample_manager_prompt
+)
 
 def sample_manager_node(state: State) -> Command[Literal["supervisor"]]:
-    result = code_agent.invoke(state)
+    result = sample_manager_agent.invoke(state)
     return Command(
         update={
             "messages": [
-                HumanMessage(content=result["messages"][-1].content, name="coder")
+                HumanMessage(content=result["messages"][-1].content, name="sample_manager")
             ]
         },
         goto="supervisor",
     )
 
+###################################################
+#lab inventory manager
+####################################################
+
+lab_inventory_manager_agent = create_react_agent(
+    model, tools=[order_supplies], prompt=prompts.lab_inventory_manager_prompt
+)
 
 def lab_inventory_manager_node(state: State) -> Command[Literal["supervisor"]]:
-    result = code_agent.invoke(state)
+    result = lab_inventory_agent.invoke(state)
     return Command(
         update={
             "messages": [
-                HumanMessage(content=result["messages"][-1].content, name="coder")
+                HumanMessage(content=result["messages"][-1].content, name="lab inventory manager")
             ]
         },
         goto="supervisor",

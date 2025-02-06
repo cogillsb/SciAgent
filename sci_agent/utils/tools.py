@@ -18,6 +18,29 @@ def assign_unique_identifier():
 
 @tool
 def get_SOP():
-    """Use this to get weather information."""
+    """Use this to fetch sop documents."""
     return "I get the sops"
- 
+
+ @tool
+def find_conc():
+    """Use this to find the concentration of something"""
+    return "I find the concentration of things"
+
+ @tool
+def write_method():
+    """Use this for writing ann automation method"""
+    return "I write methods."
+
+ @tool
+def upload_samples():
+    """Use this to upload samples"""
+    return "I upload samples."
+
+ @tool
+def order_supplies():
+    """Use this to order supplies"""
+    return "I order supplies."
+
+
+
+    

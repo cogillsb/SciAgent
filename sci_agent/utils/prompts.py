@@ -24,3 +24,24 @@ supervisor_prompt =  (
     " task and respond with their results and status. When finished,"
     " respond with FINISH."
 )
+
+SOP_archivist_prompt =  (
+    "You are an archivist tasked with retrieiving protocols, dipslaying them"
+    "and interepeting them."
+)
+
+data_scientist_prompt =  (
+    "You are a data scientist."
+)
+
+automation_specialist_prompt =  (
+    "You are an automation specialist."
+)
+
+sample_manager_prompt =  (
+    "You are a ample manager."
+)
+
+lab_inventory_manager_prompt =  (
+    "You are a lab inventory manager."
+)
