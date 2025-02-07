@@ -19,15 +19,15 @@ After you are able to discern all the information, call the relevant tool."""
 
 supervisor_prompt =  (
     "You are a supervisor tasked with managing a conversation between the"
-    f" following workers: {members}. Given the following user request,"
+    " following workers: {members}. Given the following user request,"
     " respond with the worker to act next. Each worker will perform a"
     " task and respond with their results and status. When finished,"
     " respond with FINISH."
 )
 
 SOP_archivist_prompt =  (
-    "You are an archivist tasked with retrieiving protocols, dipslaying them"
-    "and interepeting them."
+    "You are an archivist tasked with retrieiving protocols, displaying them"
+    " and interepeting them."
 )
 
 data_scientist_prompt =  (
@@ -39,7 +39,7 @@ automation_specialist_prompt =  (
 )
 
 sample_manager_prompt =  (
-    "You are a ample manager."
+    "You are a sample manager."
 )
 
 lab_inventory_manager_prompt =  (
