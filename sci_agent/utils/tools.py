@@ -4,19 +4,30 @@ tools = [TavilySearchResults(max_results=1)]
 
 @tool
 def write_to_db(dat):
-    """This is a function to output data to the datbase"""
-    print('hw')
+    """Use this to store user-provided data in the database."""
+    return "data written"
 
 @tool
-def ask_user_for_a_file():
-    """This is a function to let the agent ask the user for a file"""
-    return
+def sample_requirements():
+    """Use this to check that the user has entered all
+     of the necessary detail for adding data to the 
+     database."""
+    return "sample requirements met"
 
 @tool
 def assign_unique_identifier():
-    """This is a function to let the agent look at the files in storage,
-    identify an available ID number,
-    and tag the data to be entered"""
+    """Use this to look at the files stored in the database, 
+    identify an available ID number, and assign that unique 
+    identifier number to the data to be entered."""
+    return "data assigned identifier X"
+
+@tool
+def match_test_results_to_a_sample_group():
+    """Use this to match a test result to the sample group
+     from which it originated or with which it is associated
+     based on similar data elements such as:
+     date of collection, location, disposition, or a unique identifier."""
+    return "test result matched to parent sample."
 
 @tool
 def get_SOP():
@@ -30,7 +41,7 @@ def find_conc():
 
  @tool
 def write_method():
-    """Use this for writing ann automation method"""
+    """Use this for writing an automation method"""
     return "I write methods."
 
  @tool
@@ -41,8 +52,4 @@ def upload_samples():
  @tool
 def order_supplies():
     """Use this to order supplies"""
-    return "I order supplies."
-
-
-
-    
+    return "I order supplies."    
