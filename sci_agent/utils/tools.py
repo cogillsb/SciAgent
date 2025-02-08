@@ -1,4 +1,5 @@
 from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_core.tools import tool
 
 tools = [TavilySearchResults(max_results=1)]
 
@@ -34,22 +35,22 @@ def get_SOP():
     """Use this to fetch sop documents."""
     return "I get the sops"
 
- @tool
+@tool
 def find_conc():
     """Use this to find the concentration of something"""
     return "I find the concentration of things"
 
- @tool
+@tool
 def write_method():
     """Use this for writing an automation method"""
     return "I write methods."
 
- @tool
+@tool
 def upload_samples():
     """Use this to upload samples"""
     return "I upload samples."
 
- @tool
+@tool
 def order_supplies():
     """Use this to order supplies"""
     return "I order supplies."    

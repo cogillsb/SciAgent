@@ -1,5 +1,5 @@
 
-members = ["SOP Archivist", "Data scientist", "Automation specialist", "Sample manager", "laboratory inventory manager"]
+members = ["SOP archivist", "data scientist", "automation specialist", "sample manager", "laboratory inventory manager"]
 
 prompt_system_task = """Your job is to gather information from the user about the User Story they need to create.
 

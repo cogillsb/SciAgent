@@ -1,6 +1,6 @@
 from functools import lru_cache
 from langchain_anthropic import ChatAnthropic
-from my_agent.utils.tools import get_SOP, find_conc
+from sci_agent.utils.tools import get_SOP, find_conc, write_method, upload_samples, order_supplies
 from langgraph.prebuilt import ToolNode
 from typing import Literal
 from typing_extensions import TypedDict
@@ -9,6 +9,9 @@ from langgraph.types import Command
 from sci_agent.utils.state import State
 from sci_agent.utils import prompts
 from langgraph.prebuilt import create_react_agent
+from langchain_core.messages import HumanMessage
+
+#from langgraph_supervisor import create_supervisor
 
 
 model = ChatAnthropic(model="claude-3-5-sonnet-latest")
@@ -37,7 +40,7 @@ def supervisor_node(state: State) -> Command[Literal[*prompts.members, "__end__"
 #SOP
 ####################################################
 sop_archivist_agent = create_react_agent(
-    model, tools=[get_SOP], message_modifier=prompts.SOP_archivist_prompt
+    model, tools=[get_SOP], messages_modifier=prompts.SOP_archivist_prompt
 )
 
 def sop_archivist_node(state: State) -> Command[Literal["supervisor"]]:
@@ -101,7 +104,7 @@ def sample_manager_node(state: State) -> Command[Literal["supervisor"]]:
     return Command(
         update={
             "messages": [
-                HumanMessage(content=result["messages"][-1].content, name="sample_manager")
+                HumanMessage(content=result["messages"][-1].content, name="sample manager")
             ]
         },
         goto="supervisor",
