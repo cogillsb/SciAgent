@@ -37,7 +37,7 @@ def supervisor_node(state: State) -> Command[Literal[*prompts.members, "__end__"
 #SOP
 ####################################################
 sop_archivist_agent = create_react_agent(
-    model, tools=[get_SOP], prompt=prompts.SOP_archivist_prompt
+    model, tools=[get_SOP], message_modifier=prompts.SOP_archivist_prompt
 )
 
 def sop_archivist_node(state: State) -> Command[Literal["supervisor"]]:
