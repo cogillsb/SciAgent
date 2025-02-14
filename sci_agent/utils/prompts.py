@@ -1,5 +1,5 @@
 
-members = ["SOP archivist", "data scientist", "automation specialist", "sample manager", "laboratory inventory manager"]
+members = ["SOP archivist", "data scientist", "sample manager",  "automation specialist",  "laboratory inventory manager"]
 
 prompt_system_task = """Your job is to gather information from the user about the User Story they need to create.
 
@@ -44,4 +44,8 @@ sample_manager_prompt =  (
 
 lab_inventory_manager_prompt =  (
     "You are a lab inventory manager."
+)
+
+cedalab_intro_prompt= (
+    "Welcome I am the interactive interface with Cedalab How can I help?"
 )

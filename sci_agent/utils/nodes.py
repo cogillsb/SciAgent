@@ -119,7 +119,7 @@ lab_inventory_manager_agent = create_react_agent(
 )
 
 def lab_inventory_manager_node(state: State) -> Command[Literal["supervisor"]]:
-    result = lab_inventory_agent.invoke(state)
+    result = lab_inventory_manager_agent.invoke(state)
     return Command(
         update={
             "messages": [
