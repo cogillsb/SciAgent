@@ -26,7 +26,7 @@ db = PersistentClient(path=DB_PATH)
 custom_embedding_function = CustomEmbeddingClass(MODEL_NAME)
 
 collection = db.get_or_create_collection(name='SOPs', embedding_function=custom_embedding_function)
-
+print("model done")
 #collection.add(
     #documents = 
 #)

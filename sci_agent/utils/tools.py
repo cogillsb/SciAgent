@@ -1,7 +1,39 @@
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_core.tools import tool
+from vec_test import SciAgentVectoreStore
+from typing import List, Dict
 
+vector_store = SciAgentVectoreStore()
 tools = [TavilySearchResults(max_results=1)]
+
+@tool
+def query_knowledge_base(query: str)->List[Dict[str, str]]:
+    """
+    Looks up information in a knowledge base to help with answering customer questions and getting
+    information on business processes.
+
+    Args:
+        query (str): Question to ask the knowledge base
+
+    Return:
+        List[Dict[str, str]]: Potentially relevant question and answer pairs from the knowledge base
+    """
+    return vector_store.query_faqs(query=query)
+
+@tool 
+def search_for_protocol(request: str):
+    """
+    Retrieve relevant SOPs based on the request from the user for a method or protocol. For example:
+    "input: Fetch me the protocol for DNA extraction. Output: List of SOPs relevant to DNA extraction."
+
+    Args:
+        request(str): Request to put to the SOP vector store.
+
+    Return:
+        List[Dict[str]: Potentially relevant protocols from the SOP vector store
+
+    """
+    return vector_store.query_protocols(query=request)
 
 @tool
 def write_to_db(dat):

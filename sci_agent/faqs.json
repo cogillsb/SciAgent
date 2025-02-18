@@ -1,0 +1,10 @@
+[
+  {
+    "question": "How do I update my protocols?",
+    "answer": "You can ask me to sync or refress SOPs."
+  },
+  {
+    "question": "Why can't i add results?",
+    "answer": "All sample groups need to be checked in before analysis can happen."
+  }
+]
