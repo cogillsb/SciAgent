@@ -1,0 +1,10 @@
+[
+    {
+      "type": "text_input",
+      "label": "Name"
+    },
+    {
+      "type": "number_input",
+      "label": "Age"
+    }
+  ]
