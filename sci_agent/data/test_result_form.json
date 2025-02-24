@@ -1,0 +1,10 @@
+[
+    {
+      "type": "text_input",
+      "label": "Test Name"
+    },
+    {
+      "type": "number_input",
+      "label": "Test Result Numeric Value"
+    }
+  ]
