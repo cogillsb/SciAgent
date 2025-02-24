@@ -13,7 +13,10 @@ from langchain_core.output_parsers import  PydanticOutputParser
 from utils import states
 
 SAMPLE_FILE = "sci_agent\data\sample_form.json"
+TEST_RESULT_FILE = "sci_agent\data\test_result_form.json"
 vector_store = SciAgentVectoreStore()
+
+
 
 @tool
 def check_for_sample_form(tool_call_id: Annotated[str, InjectedToolCallId]):
@@ -34,7 +37,27 @@ def check_for_sample_form(tool_call_id: Annotated[str, InjectedToolCallId]):
                 "messages": [ToolMessage(content="The form exists and now displaying the form", tool_call_id=tool_call_id)]
             }
         )
+    
+@tool
+def check_for_test_result_form(tool_call_id: Annotated[str, InjectedToolCallId]):
+    """
+    When a user wants to check in a test result, use this method to check if there is an existing test result form.
+    """   
 
+    if  os.path.exists(TEST_RESULT_FILE):
+        return Command(
+            update={
+                "data": {
+                                'display':
+                                    {
+                                        'type':'test_result_form',
+                                        'content':TEST_RESULT_FILE
+                                    }
+                                },          
+                "messages": [ToolMessage(content="The form exists and now displaying the form", tool_call_id=tool_call_id)]
+            }
+        )
+    
 @tool
 def retrieve_protocols(state: Annotated[dict, InjectedState], tool_call_id: Annotated[str, InjectedToolCallId]):
     """Node for finding protocols in a vector store."""  
@@ -102,3 +125,29 @@ def analyze_relevance(state: Annotated[dict, InjectedState], tool_call_id: Annot
             }
     )
 
+@tool 
+def data_importer(state: Annotated[dict, InjectedState], tool_call_id: Annotated[str, InjectedToolCallId]):
+    """Node for importing samples or tests from vector store database."""  
+    database = vector_store.query_database(query=state['query'])
+       
+    return Command(
+                update={
+                    "database": database,          
+                    "messages": [ToolMessage(content="I have found matching data in the database", tool_call_id=tool_call_id)]
+                }
+    )
+
+@tool 
+def data_describer(state: Annotated[dict, InjectedState], tool_call_id: Annotated[str, InjectedToolCallId]):
+    """Node for describing data."""  
+    return()
+
+@tool     
+def data_exporter(state: Annotated[dict, InjectedState], tool_call_id: Annotated[str, InjectedToolCallId]):
+    """Node for exporting data into a convenient format."""  
+    return()
+
+@tool 
+def data_visualizer(state: Annotated[dict, InjectedState], tool_call_id: Annotated[str, InjectedToolCallId]):
+    """Node for visualizing raw or processed data."""  
+    return()
