@@ -13,7 +13,7 @@ model  = ChatAnthropic(model="claude-3-5-sonnet-latest")
 #Supervisor
 class Router(TypedDict):
     """Worker to route to next. If no workers needed, route to FINISH."""
-    next: Literal['sample manager', 'sop archivist', 'FINISH']
+    next: Literal['sample manager', 'sop archivist', 'data analyst', 'FINISH']
 
 def supervisor_node(state):    
     state['query'] = state["messages"][-1].content 
@@ -67,7 +67,7 @@ graph.add_edge('sop archivist tool node', 'sop archivist')
 
 
 #sample manager
-sample_manager_tools = [sci_tools.check_for_sample_form]
+sample_manager_tools = [sci_tools.check_for_sample_form, sci_tools.check_for_test_result_form]
 
 def sample_manager(state):  
     state['query'] = state["messages"][-1].content  
@@ -97,6 +97,38 @@ graph.add_node('sample manager', sample_manager)
 graph.add_node('sample manager tool node', sample_manager_tool_node)
 graph.add_conditional_edges('sample manager', sample_manager_conditional_edge) 
 graph.add_edge('sample manager tool node', 'sample manager')
+
+#data analyst
+data_analyst_tools = [sci_tools.data_importer, sci_tools.data_describer, sci_tools.data_exporter, sci_tools.data_visualizer]
+
+def data_analyst(state):          
+    state['query'] = state["messages"][-1].content  
+    chat_template = ChatPromptTemplate.from_messages(
+    [
+        ('system', sci_prompts.data_analyst_prompt),
+        ('placeholder', "{messages}")
+    ]
+    )
+    chain = chat_template | model.bind_tools(data_analyst_tools)
+    result = chain.invoke(state)   
+    state['messages'].append(result)
+
+    return state
+
+def data_analyst_conditional_edge(state):    
+    last_message = state['messages'][-1]
+    if last_message.tool_calls:
+        return 'data analyst tool node'
+    else:
+        return '__end__'
+    
+data_analyst_tool_node = ToolNode(data_analyst_tools)
+
+graph.add_node('data analyst', data_analyst)
+graph.add_node('data analyst tool node', data_analyst_tool_node)
+graph.add_conditional_edges('data analyst', data_analyst_conditional_edge)
+graph.add_edge('data analyst tool node', 'data analyst')
+
 
 #finish graph
 graph.set_entry_point('supervisor')
