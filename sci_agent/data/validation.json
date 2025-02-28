@@ -1,0 +1,33 @@
+[
+    {
+        "column": "Test",
+        "rule_type": "includes",
+        "parameters": {
+            "values": [
+                "Extraction control",
+                "Normalization factor"
+            ]
+        },
+        "description": "Test column must include 'Extraction control' and 'Normalization factor' values"
+    },
+    {
+        "column": "Test",
+        "rule_type": "required",
+        "parameters": {},
+        "description": "Test column is required"
+    },
+    {
+        "column": "Ct_values",
+        "rule_type": "required",
+        "parameters": {},
+        "description": "Ct_values column is required"
+    },
+    {
+        "column": "Ct_values",
+        "rule_type": "type",
+        "parameters": {
+            "expected_type": "float"
+        },
+        "description": "Ct_values must be numeric (float) values"
+    }
+]

@@ -1,10 +1,79 @@
 [
     {
-      "type": "text_input",
-      "label": "Name"
+        "key": "sampleName",
+        "label": "Sample Name",
+        "type": "text_input"
     },
     {
-      "type": "number_input",
-      "label": "Age"
+        "key": "collectionDate",
+        "label": "Collection Date",
+        "type": "date_input"
+    },
+    {
+        "key": "sampleCount",
+        "label": "Sample Count",
+        "type": "number"
+    },
+    {
+        "key": "city",
+        "label": "City",
+        "type": "text_input"
+    },
+    {
+        "key": "state",
+        "label": "State",
+        "type": "selectbox",
+        "options": [
+            "Alabama",
+            "Alaska",
+            "Arizona",
+            "Arkansas",
+            "California",
+            "Colorado",
+            "Connecticut",
+            "Delaware",
+            "Florida",
+            "Georgia",
+            "Hawaii",
+            "Idaho",
+            "Illinois",
+            "Indiana",
+            "Iowa",
+            "Kansas",
+            "Kentucky",
+            "Louisiana",
+            "Maine",
+            "Maryland",
+            "Massachusetts",
+            "Michigan",
+            "Minnesota",
+            "Mississippi",
+            "Missouri",
+            "Montana",
+            "Nebraska",
+            "Nevada",
+            "New Hampshire",
+            "New Jersey",
+            "New Mexico",
+            "New York",
+            "North Carolina",
+            "North Dakota",
+            "Ohio",
+            "Oklahoma",
+            "Oregon",
+            "Pennsylvania",
+            "Rhode Island",
+            "South Carolina",
+            "South Dakota",
+            "Tennessee",
+            "Texas",
+            "Utah",
+            "Vermont",
+            "Virginia",
+            "Washington",
+            "West Virginia",
+            "Wisconsin",
+            "Wyoming"
+        ]
     }
-  ]
+]
